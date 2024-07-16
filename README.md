@@ -1,3 +1,3 @@
 # Robots
 
-Main repository for all robot projects
+Main repository for all Robots projects
