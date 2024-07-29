@@ -21,10 +21,12 @@ class PerceptionNode(Node):
         self.publisher = self.create_publisher(Detection2DArray, 'object_detections', 10)
         self.bridge = CvBridge()
         num_classes = len(class_mapping)
-        self.model = SimpleCNN(num_classes)
-        self.model.load_state_dict(torch.load('quantized_simple_cnn.pth'))
+        state_dict = torch.load('quantized_simple_cnn.pth', map_location=torch.device('cpu'), weights_only=True)
+        print("State dict keys:", state_dict.keys())
+        self.model = SimpleCNN.from_quantized(state_dict, num_classes)
         self.model.eval()
         self.transform = transforms.Compose([
+            transforms.ToPILImage(),
             transforms.Resize((256, 256)),
             transforms.ToTensor(),
         ])
@@ -82,10 +84,10 @@ class PerceptionNode(Node):
 
         for det in detections:
             detection = Detection2D()
-            detection.bbox.center.x = det['bbox'][0] + det['bbox'][2] / 2
-            detection.bbox.center.y = det['bbox'][1] + det['bbox'][3] / 2
-            detection.bbox.size_x = det['bbox'][2]
-            detection.bbox.size_y = det['bbox'][3]
+            detection.bbox.center.x = float(det['bbox'][0] + det['bbox'][2] / 2)
+            detection.bbox.center.y = float(det['bbox'][1] + det['bbox'][3] / 2)
+            detection.bbox.size_x = float(det['bbox'][2])
+            detection.bbox.size_y = float(det['bbox'][3])
 
             hypothesis = ObjectHypothesisWithPose()
             hypothesis.id = str(det['class_id'])

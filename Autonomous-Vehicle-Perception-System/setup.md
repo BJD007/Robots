@@ -52,7 +52,13 @@
 
 ## Step 5: Integration with ROS-2 and TensorRT
 - ROS-2 Node Script
-    - rosnode.py
+    - perception_node.py
+    - image_publisher.py
+
+- This setup will allow you to see the inference results both through the OpenCV window created by the perception node and through RViz (if you choose to use it).
+    - Terminal 1: Run image_publisher.py
+    - Terminal 2: Run perception_node.py
+    - Terminal 3 (optional): Run rviz2
 
 ## Step 6: Testing and Validation
 - Use simulation tools like Gazebo or CARLA to test the integrated system. If possible, deploy the system on a robotic platform and test it in real-world conditions.
