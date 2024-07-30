@@ -7,6 +7,13 @@ import torch.nn.functional as F
 from torch.quantization import DeQuantStub, QuantStub
 from kittidataset import KITTIDataset, class_mapping
 
+# Importing the models
+from unet_pytorch import UNet
+from ViT_pytorch import ViT
+from yolo_pytorch import YOLOv3
+from ssd_pytorch import SSD300
+
+# Define the SimpleCNN model
 class SimpleCNN(nn.Module):
     def __init__(self, num_classes):
         super(SimpleCNN, self).__init__()
@@ -59,13 +66,30 @@ class SimpleCNN(nn.Module):
         # This method is no longer needed as we're already using non-quantized layers
         return self
 
+# Custom collate function for DataLoader
 def custom_collate(batch):
     images = [item[0] for item in batch]
     labels = [item[1] for item in batch]
     images = torch.stack(images, 0)
     return images, labels
 
-def train_model():
+# Function to get the model based on the model type
+def get_model(model_type, num_classes):
+    if model_type == 'simplecnn':
+        return SimpleCNN(num_classes)
+    elif model_type == 'unet':
+        return UNet(n_channels=3, n_classes=num_classes)
+    elif model_type == 'vit':
+        return ViT(image_size=256, patch_size=16, num_classes=num_classes, dim=768, depth=12, heads=12, mlp_dim=3072)
+    elif model_type == 'yolo':
+        return YOLOv3(num_classes=num_classes)
+    elif model_type == 'ssd':
+        return SSD300(num_classes=num_classes)
+    else:
+        raise ValueError(f"Unsupported model type: {model_type}")
+
+# Main training function
+def train_model(model_type):
     # Data transformations
     transform = transforms.Compose([
         transforms.Resize((256, 256)),
@@ -81,7 +105,7 @@ def train_model():
 
     # Initialize model, loss function, and optimizer
     num_classes = len(class_mapping)
-    model = SimpleCNN(num_classes)
+    model = get_model(model_type, num_classes)
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=0.001)
 
@@ -114,7 +138,9 @@ def train_model():
         print(f'Epoch {epoch+1}/{num_epochs}, Loss: {running_loss/len(train_loader)}')
 
     # Save the trained model
-    torch.save(model.state_dict(), 'kitti_cnn.pth')
+    torch.save(model.state_dict(), f'kitti_{model_type}.pth')
 
+# Main execution block
 if __name__ == '__main__':
-    train_model()
+    model_type = 'simplecnn'  # Change this to 'unet', 'vit', 'yolo', or 'ssd' as needed
+    train_model(model_type)

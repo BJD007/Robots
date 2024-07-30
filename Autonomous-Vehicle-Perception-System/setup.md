@@ -40,8 +40,20 @@
             * unzip data_object_image_2.zip
             * unzip data_object_label_2.zip
 
-## Step 3: Model Selection and Training
-- Data Collection and Preprocessing Script
+## Step 2: Model building
+    - Pytorch Framework
+        - yolo_pytorch.py
+        - ssd_pytorch.py
+        - unet_pytorch.py
+        - ViT_pytorch.py
+    - TensorFlow Framework
+        - yolo_tg.py
+        - ssd_tf.py
+        - unet_tf.py
+        - ViT_tf.py
+
+## Step 3: Data Collection, PreProcessing + Model Selection and Training
+- Data Collection, Preprocessing and Model Selection Script
     - datacollectionNpreprocessing.py
     - Datasets: Download datasets like KITTI, NuScenes, or Cityscapes.
     - Preprocessing: Use Python libraries such as OpenCV and NumPy for data augmentation, normalization, and splitting.
@@ -54,11 +66,26 @@
 - ROS-2 Node Script
     - perception_node.py
     - image_publisher.py
+    - detection_visualize.py
 
 - This setup will allow you to see the inference results both through the OpenCV window created by the perception node and through RViz (if you choose to use it).
     - Terminal 1: Run image_publisher.py
     - Terminal 2: Run perception_node.py
-    - Terminal 3 (optional): Run rviz2
+    - Terminal 3: Run rviz2
+    - Terminal 4: detection_visualize.py
 
 ## Step 6: Testing and Validation
 - Use simulation tools like Gazebo or CARLA to test the integrated system. If possible, deploy the system on a robotic platform and test it in real-world conditions.
+    - carla_test.py
+    - realworld_test.py
+
+
+## Step 7: Testing and Validation
+- Convert the trained model to TensorRT for deployment on NVIDIA GPUs, ensuring real-time performance.
+    - yolo_tensorRT.py
+    - ssd_tensorRT.py
+    - unet_tensorRT.py
+    - ViT_tensor_RT.py
+
+## Step 8: After converting the models to TensorRT, load and use them for inference
+- tensorRT_inference.py

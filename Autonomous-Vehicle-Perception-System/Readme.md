@@ -13,7 +13,7 @@ Scope: Focus on a specific use case, such as detecting pedestrians, vehicles, an
 Data Source: Use publicly available datasets like KITTI, NuScenes, or Cityscapes.
 Preprocessing: Perform data augmentation, normalization, and splitting into training, validation, and test sets.
 3. Model Selection and Training
-    - Architecture: Choose a suitable deep learning model, such as YOLO, SSD, or U-Net.
+    - Architecture: Choose a suitable deep learning model, such as YOLO, SSD, or U-Net or Vision Transformer.
     - Framework: Implement the model using PyTorch or TensorFlow.
     - Training: Train the model on a GPU cluster, monitoring performance metrics like accuracy and inference time.
 4. Model Optimization
