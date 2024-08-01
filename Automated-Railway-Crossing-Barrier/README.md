@@ -1,12 +1,8 @@
 # Automated-Railway-Crossing-Barrier
 
-
-# Automated Railway Crossing Barrier
-
 This project implements an automated railway crossing barrier using Arduino, stepper motors, and sensors.
 
 ## Directory Structure
-
 
 AutomatedRailwayCrossing/
 ├── src/
@@ -54,8 +50,5 @@ text
 
 - Adjust sensor thresholds and stepper motor settings as needed.
 - Ensure proper power management for outdoor use.
-
-This structure organizes your project files into separate modules, making it easier to manage and understand each component's functionality. The main.cpp file serves as the entry point, while the other files encapsulate specific functionalities.
-
 
 Created on 2010-12-21
