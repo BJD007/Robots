@@ -13,10 +13,9 @@ Behavior Tree Node
 Ensure your behavior tree node is set up to interact with the simulated environment. This might involve subscribing to sensor topics and publishing commands to actuators.
 Testing and Refining the Behavior Tree
 
-    Launch the Simulation:
+Launch the Simulation:
         Start the simulation using the launch file:
 
-        bash
         roslaunch your_package simulation.launch
 
 Monitor and Adjust:
