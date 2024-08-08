@@ -24,7 +24,6 @@ This project involves the development of an autonomous mobile manipulator robot 
 
 ## Project Structure
 
-```
 autonomous_mobile_manipulator/
 │
 ├── src/
@@ -48,7 +47,7 @@ autonomous_mobile_manipulator/
 │   └── simulation.launch
 │
 └── README.md
-```
+
 
 ## Installation
 
